@@ -2,7 +2,6 @@ FROM php:7.1-fpm-alpine
 MAINTAINER Kane Valentine <kane@cute.im>
 
 RUN apk add --no-cache \
-		bash \
 		sed
 
 RUN set -ex; \

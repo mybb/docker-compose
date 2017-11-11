@@ -4,12 +4,13 @@ MAINTAINER Kane Valentine <kane@cute.im>
 RUN set -ex; \
 	\
 	apt-get update; \
-	apt-get install -y \
+	apt-get install -y --no-install-suggests --no-install-recommends \
 		libjpeg-dev \
 		libpng-dev \
 		libpq-dev \
 	; \
-	rm -rf /var/lib/apt/lists/*; \
+        apt-get clean; \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
 	docker-php-ext-install gd pgsql mysqli opcache

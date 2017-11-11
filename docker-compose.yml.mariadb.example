@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:mainline-alpine
     ports:
       - '8080:80'
     volumes:

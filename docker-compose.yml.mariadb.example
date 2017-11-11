@@ -24,4 +24,4 @@ services:
      - ${PWD}/mariadb:/var/lib/mysql
 
   memcached:
-    image: memcached:1.5.3
+    image: memcached:1.5.3-alpine

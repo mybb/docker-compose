@@ -23,4 +23,4 @@ services:
       - ${PWD}/postgres/data:/var/lib/postgresql/data
 
   memcached:
-    image: memcached:1.5.3
+    image: memcached:1.5.3-alpine

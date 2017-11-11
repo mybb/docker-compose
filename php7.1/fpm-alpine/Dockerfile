@@ -1,0 +1,52 @@
+FROM php:7.1-fpm-alpine
+MAINTAINER Kane Valentine <kane@cute.im>
+
+RUN apk add --no-cache \
+		bash \
+		sed
+
+RUN set -ex; \
+	\
+	apk add --no-cache --virtual .build-deps \
+		libjpeg-turbo-dev \
+		libpng-dev \
+		postgresql-dev \
+	; \
+	\
+	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+	docker-php-ext-install gd pgsql mysqli opcache; \
+	\
+	runDeps="$( \
+		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
+			| tr ',' '\n' \
+			| sort -u \
+			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+	)"; \
+	apk add --virtual .mybb-phpexts-rundeps $runDeps; \
+	apk del .build-deps
+
+RUN { \
+		echo 'opcache.memory_consumption=128'; \
+		echo 'opcache.interned_strings_buffer=8'; \
+		echo 'opcache.max_accelerated_files=4000'; \
+		echo 'opcache.revalidate_freq=2'; \
+		echo 'opcache.fast_shutdown=1'; \
+		echo 'opcache.enable_cli=1'; \
+	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+
+VOLUME /var/www/html
+
+ENV MYBB_VERSION 1813
+ENV MYBB_SHA1 fe81f45e0cd9a4cb69967033e198068952279975
+
+RUN set -ex; \
+	curl -o mybb.tar.gz -fSL "https://github.com/mybb/mybb/archive/mybb_${MYBB_VERSION}.tar.gz"; \
+	echo "$MYBB_SHA1 *mybb.tar.gz" | sha1sum -c -; \
+	tar -xzf mybb.tar.gz -C /usr/src/; \
+	rm mybb.tar.gz; \
+	chown -R www-data:www-data /usr/src/mybb-mybb_${MYBB_VERSION}
+
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["php-fpm"]

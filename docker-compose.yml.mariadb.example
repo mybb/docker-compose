@@ -1,0 +1,27 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ${PWD}/nginx:/etc/nginx/conf.d:ro
+      - ${PWD}/mybb:/var/www/html
+
+  mybb:
+    build: php7.1/mysqli/fpm
+    volumes:
+      - ${PWD}/mybb:/var/www/html
+
+  mariadb:
+    image: mariadb:10.2
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: mybb
+      MYSQL_USER: mybb
+      MYSQL_PASSWORD: changeme
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
+
+  memcached:
+    image: memcached:1.5.3

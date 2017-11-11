@@ -19,6 +19,11 @@ services:
       POSTGRES_DB: mybb
       POSTGRES_USER: mybb
       POSTGRES_PASSWORD: changeme
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
     volumes:
       - ${PWD}/postgres/data:/var/lib/postgresql/data
 

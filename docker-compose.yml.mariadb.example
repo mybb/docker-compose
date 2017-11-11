@@ -9,7 +9,7 @@ services:
       - ${PWD}/mybb:/var/www/html
 
   mybb:
-    build: php7.1/mysqli/fpm
+    build: php7.1/fpm
     volumes:
       - ${PWD}/mybb:/var/www/html
 

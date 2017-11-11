@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ${PWD}/nginx:/etc/nginx/conf.d:ro
+      - ${PWD}/mybb:/var/www/html
+
+  mybb:
+    build: php7.1/pgsql/fpm
+    volumes:
+      - ${PWD}/mybb:/var/www/html
+
+  postgresql:
+    image: postgres:10.0
+    environment:
+      POSTGRES_DB: mybb
+      POSTGRES_USER: mybb
+      POSTGRES_PASSWORD: changeme
+    volumes:
+      - ${PWD}/postgres/data:/var/lib/postgresql/data
+
+  memcached:
+    image: memcached:1.5.3

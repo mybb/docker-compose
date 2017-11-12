@@ -10,7 +10,7 @@ services:
       - '8080:80'
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
-      - ${PWD}/mybb:/var/www/html
+      - ${PWD}/mybb:/var/www/html:ro
 
   mybb:
     build: php7.1/fpm

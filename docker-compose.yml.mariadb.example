@@ -4,8 +4,6 @@ services:
     image: nginx:mainline-alpine
     depends_on:
       - mybb
-      - memcached
-      - postgresql
     ports:
       - '8080:80'
     volumes:
@@ -16,7 +14,7 @@ services:
     build: php7.1/fpm
     depends_on:
       - memcached
-      - postgresql
+      - mariadb
     volumes:
       - ${PWD}/mybb:/var/www/html
 

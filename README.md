@@ -18,6 +18,11 @@ Or if you'd like to use a MariaDB (MySQL) backend instead run this command:
 cp docker-compose.yml.mariadb.example docker-compose.yml
 ```
 * Edit the environment variables for the chosen DBMS in the new Compose file copy. You need to set secure passwords and for good measure you shoud change the username too.
+* Raise the stack using the following command:
+```
+docker-compose up -d
+```
+* Your new MyBB instance will be ready and waiting for you at `http://localhost:8080`. Well done!
 
 # Caveats
 

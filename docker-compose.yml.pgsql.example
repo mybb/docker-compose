@@ -4,8 +4,6 @@ services:
     image: nginx:mainline-alpine
     depends_on:
       - mybb
-      - memcached
-      - postgresql
     ports:
       - '8080:80'
     volumes:

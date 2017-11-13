@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 if ! [ -e index.php -a -e inc/class_core.php ]; then

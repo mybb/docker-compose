@@ -1,4 +1,5 @@
 docker-compose.yml
+*.env
 mybb/
 mariadb/
 postgres/

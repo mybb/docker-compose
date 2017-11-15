@@ -1,0 +1,51 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx:mainline-alpine
+    depends_on:
+      - mybb
+      - goaccess
+    ports:
+      - '8080:80'
+      - '9090:9090'
+      - '7890:7890'
+    volumes:
+      - ${PWD}/nginx:/etc/nginx/conf.d:ro
+      - ${PWD}/nginx-logs:/var/log/nginx
+      - ${PWD}/mybb:/var/www/html:ro
+      - goaccess:/var/www/goaccess
+
+  mybb:
+    build: php7.1/fpm-alpine
+    depends_on:
+      - memcached
+      - postgresql
+    volumes:
+      - ${PWD}/mybb:/var/www/html
+
+  postgresql:
+    image: postgres:10.0-alpine
+    environment:
+      POSTGRES_DB: mybb
+      POSTGRES_USER: mybb
+      POSTGRES_PASSWORD: changeme
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ${PWD}/postgres/data:/var/lib/postgresql/data
+
+  goaccess:
+    image: allinurl/goaccess:latest
+    volumes:
+      - ${PWD}/goaccess/goaccess.conf:/srv/data/goaccess.conf
+      - ${PWD}/nginx-logs:/srv/logs:ro
+      - goaccess:/tmp/goaccess
+
+  memcached:
+    image: memcached:1.5.3-alpine
+
+volumes:
+  goaccess:

@@ -6,6 +6,8 @@ services:
       - mybb
     ports:
       - '8080:80'
+    networks:
+      - frontend
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
       - ${PWD}/mybb:/var/www/html:ro
@@ -15,6 +17,9 @@ services:
     depends_on:
       - memcached
       - mariadb
+    networks:
+      - frontend
+      - backend
     volumes:
       - ${PWD}/mybb:/var/www/html
 
@@ -25,8 +30,18 @@ services:
       MYSQL_DATABASE: mybb
       MYSQL_USER: mybb
       MYSQL_PASSWORD: changeme
+    networks:
+      - backend
     volumes:
      - ${PWD}/mariadb:/var/lib/mysql
 
   memcached:
     image: memcached:1.5.3-alpine
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge         
+  backend:
+    driver: bridge

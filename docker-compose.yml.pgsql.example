@@ -6,6 +6,8 @@ services:
       - mybb
     ports:
       - '8080:80'
+    networks:
+      - frontend
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
       - ${PWD}/mybb:/var/www/html:ro
@@ -15,6 +17,9 @@ services:
     depends_on:
       - memcached
       - postgresql
+    networks:
+      - frontend
+      - backend
     volumes:
       - ${PWD}/mybb:/var/www/html
 
@@ -29,8 +34,18 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+    networks:
+      - backend
     volumes:
       - ${PWD}/postgres/data:/var/lib/postgresql/data
 
   memcached:
     image: memcached:1.5.3-alpine
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

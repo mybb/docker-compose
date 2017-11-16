@@ -9,6 +9,8 @@ services:
       - '8080:80'
       - '9090:9090'
       - '7890:7890'
+    networks:
+      - frontend
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
       - ${PWD}/nginx-logs:/var/log/nginx
@@ -20,6 +22,9 @@ services:
     depends_on:
       - memcached
       - postgresql
+    networks:
+      - frontend
+      - backend
     volumes:
       - ${PWD}/mybb:/var/www/html
 
@@ -34,11 +39,15 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+    networks:
+      - backend
     volumes:
       - ${PWD}/postgres/data:/var/lib/postgresql/data
 
   goaccess:
     image: allinurl/goaccess:latest
+    networks:
+      - frontend
     volumes:
       - ${PWD}/goaccess/goaccess.conf:/srv/data/goaccess.conf
       - ${PWD}/nginx-logs:/srv/logs:ro
@@ -46,6 +55,14 @@ services:
 
   memcached:
     image: memcached:1.5.3-alpine
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge         
+  backend:
+    driver: bridge
 
 volumes:
   goaccess:

@@ -32,7 +32,7 @@ services:
       - ${PWD}/mybb:/var/www/html
 
   postgresql:
-    image: postgres:10.0-alpine
+    image: postgres:10.1-alpine
     environment:
       POSTGRES_DB: mybb
       POSTGRES_USER: mybb

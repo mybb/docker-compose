@@ -4,10 +4,14 @@ services:
     image: nginx:mainline-alpine
     depends_on:
       - mybb
-    ports:
-      - '8080:80'
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - frontend
+    ports:
+      - '8080:80'
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
       - ${PWD}/mybb:/var/www/html:ro
@@ -17,6 +21,10 @@ services:
     depends_on:
       - memcached
       - mariadb
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - frontend
       - backend
@@ -30,6 +38,10 @@ services:
       MYSQL_DATABASE: mybb
       MYSQL_USER: mybb
       MYSQL_PASSWORD: changeme
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - backend
     volumes:
@@ -37,6 +49,10 @@ services:
 
   memcached:
     image: memcached:1.5.3-alpine
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - backend
 

@@ -1,35 +1,22 @@
-# docker-compose
-A docker compose setup for running MyBB.
+# Supported tags and respective `Dockerfile` links
 
-Two flavours are provided, one Compose file containing a PostgreSQL database and another file which contains a MariaDB database, this should allow plugin developers a very good test stack to ensure that the queries within their code run well regardless of the server architecture. Other containers provided include an nginx proxy, to serve the static content and a memcached instance. The MyBB container itself comes in two variations which are `fpm` and `fpm-alpine`. 
+-	[`latest` (*php7.1/fpm/Dockerfile*)](https://github.com/mybb/docker-compose/blob/master/php7.1/fpm/Dockerfile)
 
-# Usage
+# Quick reference
 
-* Clone the repository:
-```
-git clone https://github.com/mybb/docker-compose.git
-```
-* Create a copy of one of the Compose YAML files. If you'd like to use a PostgreSQL database backend run this command:
-```
-cp docker-compose.yml.pgsql.example docker-compose.yml
-```
-Or if you'd like to use a MariaDB (MySQL) backend instead run this command:
-```
-cp docker-compose.yml.mariadb.example docker-compose.yml
-```
-* Edit the environment variables for the chosen DBMS in the new Compose file copy. You need to set secure passwords and for good measure you shoud change the username too.
-* Raise the stack using the following command:
-```
-docker-compose up -d
-```
-* Your new MyBB instance will be ready and waiting for you at `http://localhost:8080`. Well done!
+-	**Where to get help**:  
+	[the MyBB Community Forums](https://community.mybb.com/)
 
-# Caveats
+-	**Where to file issues**:  
+	[https://github.com/mybb/docker-compose/issues](https://github.com/mybb/docker-compose/issues)
 
-* The default MyBB configuration file after the installation procedure is set to look for a memcached instance running on `localhost`. To make use of the memcached instance you'll need to edit that to look like this instead:
-```
-$config['cache_store'] = 'memcached';
+-	**Maintained by**:  
+	[the MyBB Team](https://mybb.com/about/team/)
 
-$config['memcache']['host'] = 'memcached';
-$config['memcache']['port'] = 11211;
-```
+# What is MyBB?
+
+MyBB is the free and open source, intuitive, extensible, and incredibly powerful forum software you've been looking for. With everything from forums to threads, posts to private messages, search to profiles, and reputation to warnings, MyBB features everything you need to run an efficient and captivating community. Through plugins and themes, you can extend MyBB's functionality to build your community exactly as you'd like it. Learn more at [MyBB.com](https://mybb.com).
+
+> [wikipedia.org/wiki/MyBB](https://en.wikipedia.org/wiki/MyBB)
+
+![logo](https://mybb.com/assets/images/logo.png)

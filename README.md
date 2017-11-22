@@ -23,6 +23,10 @@ MyBB is the free and open source, intuitive, extensible, and incredibly powerful
 
 # How to use this image
 
+```console
+$ docker run mybb/mybb:latest
+```
+
 This image only provides a MyBB service container running PHP7.X-FPM. There are no database or nginx container(s) provided, you'll need to use Docker Compose or Stack to wrange those additional services to your MyBB instance. Please see the provided mysqli/pgsql Compose example files in the official repository, [here](https://github.com/mybb/docker-compose). A very basic example has also been provided below.
 
 ## ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)

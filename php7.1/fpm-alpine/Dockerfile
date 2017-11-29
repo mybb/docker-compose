@@ -36,8 +36,8 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV MYBB_VERSION 1813
-ENV MYBB_SHA1 fe81f45e0cd9a4cb69967033e198068952279975
+ENV MYBB_VERSION 1814
+ENV MYBB_SHA1 d3cd88bfbdbeb8ac44bba44020a3d84efd6a3163
 
 RUN set -ex; \
 	curl -o mybb.tar.gz -fSL "https://github.com/mybb/mybb/archive/mybb_${MYBB_VERSION}.tar.gz"; \

@@ -12,6 +12,7 @@ services:
       - frontend
     ports:
       - '8080:80'
+    restart: on-failure
     volumes:
       - ${PWD}/nginx:/etc/nginx/conf.d:ro
       - ${PWD}/mybb:/var/www/html:ro
@@ -28,6 +29,7 @@ services:
     networks:
       - frontend
       - backend
+    restart: on-failure
     volumes:
       - ${PWD}/mybb:/var/www/html
 
@@ -48,6 +50,7 @@ services:
         tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - backend
+    restart: on-failure
     volumes:
       - ${PWD}/postgres/data:/var/lib/postgresql/data
 
@@ -59,6 +62,7 @@ services:
         tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - backend
+    restart: on-failure
 
 networks:
   frontend:

@@ -1,6 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 
--	[`latest` (*php7.1/fpm/Dockerfile*)](https://github.com/mybb/docker-compose/blob/master/php7.1/fpm/Dockerfile)
+-	[`latest`, `php7.1` (*php7.1/fpm/Dockerfile*)](https://github.com/mybb/docker-compose/blob/master/php7.1/fpm/Dockerfile)
+-	[`php7.2` (*php7.2/fpm/Dockerfile*)](https://github.com/mybb/docker-compose/blob/master/php7.2/fpm/Dockerfile)
+-	[`php5.6` (*php5.6/fpm/Dockerfile*)](https://github.com/mybb/docker-compose/blob/master/php5.6/fpm/Dockerfile)
 
 # Quick reference
 

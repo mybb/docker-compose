@@ -64,6 +64,12 @@ services:
       - backend
     restart: on-failure
 
+  composer:
+    image: composer
+    restart: 'no'
+    volumes:
+      - ${PWD}/mybb:/app
+
 networks:
   frontend:
     driver: bridge
